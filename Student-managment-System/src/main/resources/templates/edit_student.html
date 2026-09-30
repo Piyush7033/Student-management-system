@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Student</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <h2 class="mb-4">Edit Student</h2>
+
+            <form th:action="@{/students/{id}(id=${student.id})}"
+                  th:object="${student}"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <!-- Current Image -->
+                <div class="mb-4 text-center">
+
+                    <label class="form-label fw-bold">
+                        Current Photo
+                    </label>
+
+                    <div>
+
+                        <img th:if="${student.imageName != null}"
+                             th:src="@{/uploads/{img}(img=${student.imageName})}"
+                             width="150"
+                             height="150"
+                             class="rounded-circle border shadow-sm">
+
+                        <div th:if="${student.imageName == null}"
+                             class="text-muted">
+                            No Image Available
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Upload New Image -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Change Photo
+                    </label>
+
+                    <input type="file"
+                           name="imageFile"
+                           accept="image/*"
+                           class="form-control">
+                </div>
+
+                <!-- First Name -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        First Name
+                    </label>
+
+                    <input type="text"
+                           th:field="*{firstName}"
+                           class="form-control"
+                           required>
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Last Name
+                    </label>
+
+                    <input type="text"
+                           th:field="*{lastName}"
+                           class="form-control"
+                           required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           th:field="*{email}"
+                           class="form-control"
+                           required>
+                </div>
+
+                <!-- Department -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Department
+                    </label>
+
+                    <input type="text"
+                           th:field="*{department}"
+                           class="form-control"
+                           placeholder="Enter Department"
+                           required>
+                </div>
+
+                <!-- Buttons -->
+                <button type="submit"
+                        class="btn btn-primary">
+                    Update Student
+                </button>
+
+                <a th:href="@{/students}"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

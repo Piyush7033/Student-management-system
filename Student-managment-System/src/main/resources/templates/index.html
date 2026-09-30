@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Management Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Poppins',sans-serif;
+            min-height:100vh;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            color:white;
+        }
+
+        .header{
+            width:100%;
+            padding:20px 50px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(10px);
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:700;
+        }
+
+        .user-info{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .welcome-user{
+            font-weight:600;
+            font-size:16px;
+        }
+
+        .logout-btn{
+            background:#ff4d4d;
+            color:white;
+            padding:10px 20px;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .logout-btn:hover{
+            background:#e60000;
+        }
+
+        h1{
+            margin-top:40px;
+            font-size:42px;
+        }
+
+        .subtitle{
+            margin-top:10px;
+            opacity:0.9;
+        }
+
+        .welcome-card{
+            margin-top:25px;
+            background:rgba(255,255,255,0.15);
+            padding:20px 30px;
+            border-radius:15px;
+            backdrop-filter:blur(10px);
+            text-align:center;
+            min-width:350px;
+        }
+
+        .container{
+            display:flex;
+            gap:40px;
+            margin-top:50px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        .card{
+            width:300px;
+            height:220px;
+            background:rgba(255,255,255,0.15);
+            backdrop-filter:blur(12px);
+            border-radius:25px;
+            border:1px solid rgba(255,255,255,0.3);
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            text-align:center;
+            transition:0.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+        }
+
+        .card i{
+            font-size:55px;
+            margin-bottom:15px;
+        }
+
+        .card-title{
+            font-size:22px;
+            font-weight:600;
+        }
+
+        .card-text{
+            font-size:14px;
+            margin-top:8px;
+            padding:0 20px;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        .alert-success{
+            margin-top:20px;
+            background:#28a745;
+            color:white;
+            padding:10px 20px;
+            border-radius:10px;
+        }
+
+        @media(max-width:768px){
+
+            .header{
+                flex-direction:column;
+                gap:15px;
+                padding:20px;
+            }
+
+            .container{
+                flex-direction:column;
+            }
+
+            .welcome-card{
+                min-width:90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="logo">
+        🎓 SMS Portal
+    </div>
+
+    <div class="user-info">
+
+        <div class="welcome-user">
+            Welcome,
+            <span th:text="${session.user != null ? session.user.name : 'Guest'}">
+                Guest
+            </span>
+        </div>
+
+        <a th:href="@{/logout}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+
+    </div>
+
+</div>
+
+<div th:if="${loginSuccess}" class="alert-success">
+    ✅ Login Successful! Welcome to Student Management System
+</div>
+
+<h1>Student Management Dashboard</h1>
+
+<p class="subtitle">
+    Manage Students & Course Modules Efficiently
+</p>
+
+<div class="welcome-card">
+
+    <h3>
+        Hello,
+        <span th:text="${session.user != null ? session.user.name : 'Guest'}">
+            Student
+        </span> 👋
+    </h3>
+
+    <br>
+
+    <p>
+        Username:
+        <strong th:text="${session.user != null ? session.user.username : '-'}">
+            -
+        </strong>
+    </p>
+
+    <p>
+        Email:
+        <strong th:text="${session.user != null ? session.user.email : '-'}">
+            -
+        </strong>
+    </p>
+
+</div>
+
+<div class="container">
+
+    <a th:href="@{/students}">
+        <div class="card">
+            <i class="fas fa-user-graduate"></i>
+            <div class="card-title">Student Management</div>
+            <div class="card-text">
+                Add, Update, Delete and View Student Records.
+            </div>
+        </div>
+    </a>
+
+
+</div>
+
+</body>
+</html>
